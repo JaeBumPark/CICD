@@ -24,8 +24,8 @@ pipeline {
     stage('docker build') {
       steps {
         sh '''
-        docker build -t ${dockerHubRegistry}:${BUILD_NUMBER}"
-        docker build -t ${dockerHubRegistry}:latest"
+        docker build -t ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
+        docker build -t ${ DOCKERHUB_REPOSITORY}:latest"
         '''
       }
     }
