@@ -5,6 +5,23 @@ pipeline {
     dockerImage = ''
   }
   agent any
+  
+  stage('Checkout Application Git Branch') {
+        steps {
+            git credentialsId: 'credential_kbo',
+                url: 'http://git.kbotest.shop/kbo/spring.git', /* URL변경에 따른 수정 필요 */
+                branch: 'main'
+        }
+        post {
+                failure {
+                  echo 'Repository clone failure !'
+                }
+                success {
+                  echo 'Repository clone success !'
+                }
+        }
+    }.  #필요할까?
+  
   stages {
     stage('git scm update') {
       steps {
@@ -21,7 +38,8 @@ pipeline {
     stage('docker build') {
       steps {
         sh '''
-        docker build -t nginx:latest .
+        docker build -t ${dockerHubRegistry}:${currentBuild.number}"
+        docker build -t ${dockerHubRegistry}:latest"
         '''
       }
     }
