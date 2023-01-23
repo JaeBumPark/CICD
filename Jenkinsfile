@@ -32,8 +32,7 @@ pipeline {
        steps {
          sh '''     
          docker push ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}
-         
-         sleep 10 /* Wait uploading */
+        
          '''         
             }     
     }
