@@ -1,4 +1,5 @@
 pipeline {
+    agent any
   environment {
     DOCKERHUB_REPOSITORY = "kyontoki/nginx"
     DOCKERHUB_CREDENTIALS = credentials('kyontoki')
