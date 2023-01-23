@@ -29,14 +29,26 @@ pipeline {
         '''
       }
     }
-    
-    stage('deploy deploy') {
-      steps {
-        sh '''
-        docker tag nginx:latest $DOCKERHUB_REPOSITORY:1.0
-        docker push $DOCKERHUB_REPOSITORY:1.0
-        '''
-      }
+     stage('Docker Image Push') {
+       steps {
+         sh '''     
+         docker push ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
+         docker push ${DOCKERHUB_REPOSITORY}:latest"
+         sleep 10 /* Wait uploading */
+         '''         
+            }
+            post {
+                    failure {
+                      echo 'Docker Image Push failure !'
+                      sh "docker rmi ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
+                      sh "docker rmi ${DOCKERHUB_REPOSITORY}:latest"
+                    }
+                    success {
+                      echo 'Docker image push success !'
+                      sh "docker rmi ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
+                      sh "docker rmi ${DOCKERHUB_REPOSITORY}:latest"
+                    }
+            }
     }
   }
 }
