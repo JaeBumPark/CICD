@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('git scm update') {
       steps {
-        git url: 'https://github.com/dduddu00/CICD.git', branch: 'main'
+        git url: 'https://github.com/JaeBumPark/CICD.git', branch: 'main'
       }
     }
     stage('docker login') {
