@@ -25,7 +25,7 @@ pipeline {
       steps {
         sh '''
         docker build -t ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
-        docker build -t ${ DOCKERHUB_REPOSITORY}:latest"
+        docker build -t ${DOCKERHUB_REPOSITORY}:latest"
         '''
       }
     }
