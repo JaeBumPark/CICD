@@ -8,8 +8,8 @@ pipeline {
   
   stage('Checkout Application Git Branch') {
         steps {
-            git credentialsId: 'credential_kbo',
-                url: 'http://git.kbotest.shop/kbo/spring.git', /* URL변경에 따른 수정 필요 */
+            git credentialsId: 'kyontoki',
+                url: 'https://github.com/JaeBumPark/CICD.git', /* URL변경에 따른 수정 필요 */
                 branch: 'main'
         }
         post {
@@ -20,7 +20,7 @@ pipeline {
                   echo 'Repository clone success !'
                 }
         }
-    }.  #필요할까?
+    }.  
   
   stages {
     stage('git scm update') {
