@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    repository = "kyontoki/nginx"
+    DOCKERHUB_REPOSITORY = "kyontoki/nginx"
     DOCKERHUB_CREDENTIALS = credentials('kyontoki')
     dockerImage = ''
   }
@@ -29,8 +29,8 @@ pipeline {
     stage('deploy deploy') {
       steps {
         sh '''
-        docker tag nginx:latest kyontoki/nginx:1.0
-        docker push kyontoki/nginx:1.0
+        docker tag nginx:latest $DOCKERHUB_REPOSITORY:1.0
+        docker push $DOCKERHUB_REPOSITORY:1.0
         '''
       }
     }
