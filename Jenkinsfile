@@ -24,8 +24,7 @@ pipeline {
     stage('docker build') {
       steps {
         sh '''
-        docker build . -t ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}" 
-      
+        docker build . -t ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}
         '''
       }
     }
@@ -36,19 +35,7 @@ pipeline {
          
          sleep 10 /* Wait uploading */
          '''         
-            }
-            post {
-                    failure {
-                      echo 'Docker Image Push failure !'
-                      sh "docker rmi ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
-                   
-                    }
-                    success {
-                      echo 'Docker image push success !'
-                      sh "docker rmi ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
-                     
-                    }
-            }
+            }     
     }
   }
 }
