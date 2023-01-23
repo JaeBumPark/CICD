@@ -8,10 +8,9 @@ pipeline {
 
   
   stages {
-    
     stage('Checkout Application Git Branch') {
-        steps {
-            git credentialsId: 'kyontoki',
+      steps {
+          git credentialsId: 'kyontoki',
                 url: 'https://github.com/JaeBumPark/CICD.git', /* URL변경에 따른 수정 필요 */
                 branch: 'main'
         }
@@ -23,7 +22,7 @@ pipeline {
                   echo 'Repository clone success !'
                 }
         }
-    }.  
+    }  
   
 
     stage('git scm update') {
