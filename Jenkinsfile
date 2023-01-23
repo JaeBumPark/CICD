@@ -31,7 +31,7 @@ pipeline {
      stage('Docker Image Push') {
        steps {
          sh '''     
-         docker push ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
+         docker push ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}
          
          sleep 10 /* Wait uploading */
          '''         
