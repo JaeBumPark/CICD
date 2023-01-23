@@ -25,7 +25,7 @@ pipeline {
       steps {
         sh '''
         docker build -t ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
-        docker build -t ${DOCKERHUB_REPOSITORY}:latest"
+      
         '''
       }
     }
@@ -33,7 +33,7 @@ pipeline {
        steps {
          sh '''     
          docker push ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
-         docker push ${DOCKERHUB_REPOSITORY}:latest"
+         
          sleep 10 /* Wait uploading */
          '''         
             }
@@ -41,12 +41,12 @@ pipeline {
                     failure {
                       echo 'Docker Image Push failure !'
                       sh "docker rmi ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
-                      sh "docker rmi ${DOCKERHUB_REPOSITORY}:latest"
+                   
                     }
                     success {
                       echo 'Docker image push success !'
                       sh "docker rmi ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}"
-                      sh "docker rmi ${DOCKERHUB_REPOSITORY}:latest"
+                     
                     }
             }
     }
