@@ -24,14 +24,14 @@ pipeline {
     stage('docker build') {
       steps {
         sh '''
-        docker build . -t ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}
+        docker build . -t ${DOCKERHUB_REPOSITORY}/NG:${BUILD_NUMBER}
         '''
       }
     }
      stage('Docker Image Push') {
        steps {
          sh '''     
-         docker push ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}
+         docker push ${DOCKERHUB_REPOSITORY}/NG:${BUILD_NUMBER}
         
          '''         
             }     
@@ -40,16 +40,16 @@ pipeline {
      stage('K8S Manifest Update') {
        steps {
             git credentialsId: 'jp_git',
-                url: 'https://github.com/JaeBumPark/CICD', /* URL변경에 따른 수정 필요 */
+                url: 'https://github.com/JaeBumPark/CICD.git', /* URL변경에 따른 수정 필요 */
                 branch: 'main'
             sh "git config --global user.email 'jack29@naver.com'"
             sh "git config --global user.name 'JaeBumPark'"
-            sh "sed -i 's/spring:.*\$/spring:${BUILD_NUMBER}/g' kyo.yaml"
+            sh "sed -i 's/kyontoki/NG:1.0.*\$/kyontoki/NG:${BUILD_NUMBER}/g' kyo.yaml"
             sh "git add kyo.yaml"
             sh "git commit -m '[UPDATE] POD ${BUILD_NUMBER} image versioning'"
             /* sshagent (credentials: ['GitLab_SSH_Key']) {
                /*  sh "git remote set-url origin git@git.kbotest.shop:kbo/manifest.git" URL변경에 따른 수정 필요 */
-                sh "git push -u origin main"
+            sh "git push -u origin main"
             }  
         }
     }
