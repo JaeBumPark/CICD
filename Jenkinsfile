@@ -44,11 +44,11 @@ pipeline {
                 branch: 'main'
             sh "git config --global user.email 'jack29@naver.com'"
             sh "git config --global user.name 'JaeBumPark'"
-            sh "sed -i 's/spring:.*\$/spring:${currentBuild.number}/g' springapp_deployment.yaml"
-            sh "git add springapp_deployment.yaml"
-            sh "git commit -m '[UPDATE] springapp ${currentBuild.number} image versioning'"
-            sshagent (credentials: ['GitLab_SSH_Key']) {
-                sh "git remote set-url origin git@git.kbotest.shop:kbo/manifest.git" /* URL변경에 따른 수정 필요 */
+            sh "sed -i 's/spring:.*\$/spring:${BUILD_NUMBER}/g' kyo.yaml"
+            sh "git add kyo.yaml"
+            sh "git commit -m '[UPDATE] POD ${BUILD_NUMBER} image versioning'"
+            /* sshagent (credentials: ['GitLab_SSH_Key']) {
+               /*  sh "git remote set-url origin git@git.kbotest.shop:kbo/manifest.git" URL변경에 따른 수정 필요 */
                 sh "git push -u origin main"
             }  
         }
