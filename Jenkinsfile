@@ -1,7 +1,7 @@
 pipeline {
     agent any
   environment {
-    DOCKERHUB_REPOSITORY = "kyontoki/NG"
+    DOCKERHUB_REPOSITORY = "kyontoki/ng"
     DOCKERHUB_CREDENTIALS = credentials('kyontoki')
     dockerImage = ''
   }
