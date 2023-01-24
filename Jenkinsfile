@@ -44,6 +44,8 @@ pipeline {
                 branch: 'main'
             sh "git config --global user.email 'jack29@naver.com'"
             sh "git config --global user.name 'JaeBumPark'"
+            sh "mkdir /git"
+            sh "cd /git"
             sh "git add ."
             sh "sed -i 's@${DOCKERHUB_REPOSITORY}@${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}@g' kyo.yaml"
             // sh "git add kyo.yaml"
