@@ -1,7 +1,7 @@
 pipeline {
     agent any
   environment {
-    DOCKERHUB_REPOSITORY = "kyontoki/nginx"
+    DOCKERHUB_REPOSITORY = "kyontoki/NG"
     DOCKERHUB_CREDENTIALS = credentials('kyontoki')
     dockerImage = ''
   }
@@ -24,14 +24,14 @@ pipeline {
     stage('docker build') {
       steps {
         sh '''
-        docker build . -t ${DOCKERHUB_REPOSITORY}/NG:${BUILD_NUMBER}
+        docker build . -t ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}
         '''
       }
     }
      stage('Docker Image Push') {
        steps {
          sh '''     
-         docker push ${DOCKERHUB_REPOSITORY}/NG:${BUILD_NUMBER}
+         docker push ${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}
         
          '''         
             }     
@@ -44,7 +44,7 @@ pipeline {
                 branch: 'main'
             sh "git config --global user.email 'jack29@naver.com'"
             sh "git config --global user.name 'JaeBumPark'"
-            sh "sed -i 's/kyontoki/NG:1.0.*\$/kyontoki/NG:${BUILD_NUMBER}/g' kyo.yaml"
+            sh "sed -i 's/${DOCKERHUB_REPOSITORY}.*\$${DOCKERHUB_REPOSITORY}:${BUILD_NUMBER}/g' kyo.yaml"
             sh "git add kyo.yaml"
             sh "git commit -m '[UPDATE] POD ${BUILD_NUMBER} image versioning'"
             /* sshagent (credentials: ['GitLab_SSH_Key']) {
