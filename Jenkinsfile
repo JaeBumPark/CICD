@@ -63,7 +63,7 @@ pipeline {
             sh "git commit -m '[UPDATE] POD ${BUILD_NUMBER} image versioning'" 
             sshagent (credentials: ['GitLab_SSH_Key']) {
             sh "git remote set-url origin git@git.kbotest.shop:kbo/manifest.git" 
-            sh "git push origin main"
+            sh "git push -u origin main"
             }  
         }
     }
