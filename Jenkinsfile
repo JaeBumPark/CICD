@@ -59,7 +59,7 @@ pipeline {
             sh "git config --global user.email 'jack29@naver.com'"
             sh "git config --global user.name 'JaeBumPark'"
             sh "sed -i 's|ng:1.0|ng:${BUILD_NUMBER}|g' kyo.yml "  
-            sh "git add kyo.yaml"
+            sh "git add kyo.yml"
             sh "git commit -m '[UPDATE] POD ${BUILD_NUMBER} image versioning'" 
             /* sshagent (credentials: ['GitLab_SSH_Key']) {
                /*  sh "git remote set-url origin git@git.kbotest.shop:kbo/manifest.git" URL변경에 따른 수정 필요 */
