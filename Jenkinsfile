@@ -54,15 +54,15 @@ pipeline {
      stage('K8S Manifest Update') {
        steps {
             git credentialsId: 'jp_git',
-                url: 'https://github.com/JaeBumPark/CICD.git', /* URL변경에 따른 수정 필요 */
+                url: 'https://github.com/JaeBumPark/CICD.git', 
                 branch: 'main'
             sh "git config --global user.email 'jack29@naver.com'"
             sh "git config --global user.name 'JaeBumPark'"
             sh "sed -i 's|ng:.*|ng:${BUILD_NUMBER}|g' kyo.yml "  
             sh "git add kyo.yml"
             sh "git commit -m '[UPDATE] POD ${BUILD_NUMBER} image versioning'" 
-            /* sshagent (credentials: ['GitLab_SSH_Key']) {
-               /*  sh "git remote set-url origin git@git.kbotest.shop:kbo/manifest.git" URL변경에 따른 수정 필요 */
+            sshagent (credentials: ['GitLab_SSH_Key']) {
+            sh "git remote set-url origin git@git.kbotest.shop:kbo/manifest.git" 
             sh "git push origin main"
             }  
         }
